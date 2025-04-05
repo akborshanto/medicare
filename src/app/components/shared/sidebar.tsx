@@ -25,7 +25,7 @@ const navItems = [
   { icon: Settings, label: "Settings", href: "#" },
 ]
 
-export function GlassSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function GlassSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)    {
   return (
     <Sidebar className="border-none shadow-none" {...props}>
       <div className="absolute inset-0 bg-background/30 backdrop-blur-xl backdrop-filter border-r border-white/10 rounded-r-2xl" />
@@ -56,7 +56,7 @@ export function GlassSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
       <SidebarFooter className="relative z-10 mt-auto p-4 border-t border-white/10">
         <div className="text-xs text-foreground/60">© 2024 Glass UI</div>
       </SidebarFooter>
-      <SidebarRail />
+      <SidebarRail /> 
     </Sidebar>
   )
 }
