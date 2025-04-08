@@ -14,6 +14,8 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/utils/authOptions"
 
 // Sample navigation items
 const navItems = [
@@ -25,17 +27,19 @@ const navItems = [
   { icon: Settings, label: "Settings", href: "#" },
 ]
 
-export function GlassSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)    {
+export async function GlassSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)    {
+const session=await getServerSession(authOptions)
+console.log(session)
   return (
     <Sidebar className="border-none shadow-none" {...props}>
       <div className="absolute inset-0 bg-background/30 backdrop-blur-xl backdrop-filter border-r border-white/10 rounded-r-2xl" />
       <SidebarHeader className="relative z-10 flex items-center justify-between p-4 border-b border-white/10">
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ4RujW9_si89qvtoXLwIripLMrwQe78N0xA&s?height=32&width=32" alt="Avatar" />
+            <AvatarImage src={session?.user?.image} alt="Avatar" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <div className="font-medium">John Doe</div>
+          <div className="font-medium">{session?.user?.name}</div>
         </div>
        
       </SidebarHeader>

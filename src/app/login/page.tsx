@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
-
+import {signIn} from 'next-auth/react'
 type FormValues = {
   email: string
   password: string
@@ -136,8 +136,10 @@ const  Login =()=> {
             <Button variant="outline" type="button" className="bg-white/70">
               Google
             </Button>
-            <Button variant="outline" type="button" className="bg-white/70">
-              Apple
+            <Button variant="outline" type="button" className="bg-white/70" onClick={()=>signIn("github",{
+              callbackUrl:"http://localhost:3000/dashboard"
+            })}>
+         GITHUB
             </Button>
           </div>
           <div className="text-center text-sm">
