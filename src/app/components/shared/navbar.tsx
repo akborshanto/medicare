@@ -11,8 +11,16 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
 
-export function Navbar() {
+type UserProps ={
+  user?:{
+    name?:string | null | undefined,
+    email?:string | null | undefined,
+    image?:string | null | undefined
+  }
+}
+export function Navbar({session}:{session:UserProps | null}) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   if (typeof window !== "undefined") {
@@ -147,12 +155,21 @@ export function Navbar() {
             <span className="sr-only">Cart</span>
           </Button>
           <div className="hidden md:flex gap-2">
+
+{
+
+  session?.user ? 
+  
+              <Button variant="outline" className=" cursor-pointer" onClick={()=>signOut()}>Logout</Button>
+         
+            :
             <Link href="/login">
-              <Button variant="outline">Sign In</Button>
+              <Button variant="outline" className=" cursor-pointer"> Sign In</Button>
             </Link>
-            <Link href="/register">
-              <Button className="bg-teal-600 hover:bg-teal-700">Sign Up</Button>
-            </Link>
+}
+
+
+     
           </div>
           <Link href="/account" className="md:hidden">
             <Button variant="ghost" size="icon" className="text-gray-700">
