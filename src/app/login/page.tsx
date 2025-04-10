@@ -133,10 +133,10 @@ const  Login =()=> {
             <span className="relative bg-white/60 px-2 text-xs text-gray-500">OR CONTINUE WITH</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" type="button" className="bg-white/70">
+            <Button variant="outline" type="button" className="bg-white/70 cursor-pointer" onClick={()=>signIn('google',{    callbackUrl:"http://localhost:3000/dashboard"})}>
               Google
             </Button>
-            <Button variant="outline" type="button" className="bg-white/70" onClick={()=>signIn("github",{
+            <Button variant="outline" type="button" className="bg-white/70 cursor-pointer" onClick={()=>signIn("github",{
               callbackUrl:"http://localhost:3000/dashboard"
             })}>
          GITHUB
