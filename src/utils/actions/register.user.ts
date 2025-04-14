@@ -5,7 +5,8 @@ export const registerUser=async(data)=>{
         headers:{
             "Content-Type":"application/json"
         },
-        body:JSON.stringify(data)
+        body:JSON.stringify(data),
+        cache:"no-store"
     });
     const userInfo=await res.json()
     return userInfo

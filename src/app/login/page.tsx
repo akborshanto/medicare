@@ -1,5 +1,5 @@
 "use client"
-
+import Cookies from 'js-cookie'
 import { useState } from "react"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
@@ -10,6 +10,9 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import {signIn} from 'next-auth/react'
+import { loginUser } from "@/utils/actions/login.user"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 type FormValues = {
   email: string
   password: string
@@ -18,7 +21,7 @@ type FormValues = {
 
 const  Login =()=> {
   const [showPassword, setShowPassword] = useState(false)
-
+const router=useRouter()
   const {
     register,
     handleSubmit,
@@ -27,14 +30,24 @@ const  Login =()=> {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
+    
     },
   })
 
   const onSubmit = async (data: FormValues) => {
-    // Simulate API call
-    console.log("Login form submitted:", data)
 
+
+
+
+     const result=await loginUser(data)
+     console.log(result)
+    if(result.data.token){
+      toast.success("Login successful")
+
+     Cookies.set("token", result.data.token, { expires: 7 });
+       
+     router.push("/")
+    }
     // Add a small delay to simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
@@ -112,12 +125,12 @@ const  Login =()=> {
               {errors.password && <p className="text-sm text-red-500 mt-1">{errors.password.message}</p>}
             </div>
           </div>
-          <div className="flex items-center space-x-2">
+      {/*     <div className="flex items-center space-x-2">
             <Checkbox id="rememberMe" {...register("rememberMe")} />
             <Label htmlFor="rememberMe" className="text-sm font-normal">
               Remember me for 30 days
             </Label>
-          </div>
+          </div> */}
           <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700" disabled={isSubmitting}>
             {isSubmitting ? (
               <div className="flex items-center justify-center">

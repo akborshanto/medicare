@@ -145,7 +145,7 @@ const router=useRouter()
                     required: "Password is required",
                     minLength: { value: 8, message: "At least 8 characters" },
                     pattern: {
-                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/,
+                      
                       message: "Must include uppercase, lowercase, number, special character",
                     },
                   })}

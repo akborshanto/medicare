@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, Search, ShoppingCart, User } from "lucide-react";
+import Cookies from 'js-cookie'
 
+import JWt from "jsonwebtoken";
 import {
   Sheet,
   SheetContent,
@@ -33,6 +35,16 @@ export function Navbar({session}:{session:UserProps | null}) {
     });
   }
 
+const token=Cookies.get("token")
+const decode=JWt.decode(token)
+console.log(decode)
+
+const handleLogout=()=>{
+  console.log("DELETE😀😀😀😀😀😀😀😀")
+
+Cookies.remove('token')
+
+}
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
@@ -158,10 +170,9 @@ export function Navbar({session}:{session:UserProps | null}) {
 
 {
 
-  session?.user ? 
+  session?.user || decode?.user ? 
   
-              <Button variant="outline" className=" cursor-pointer" onClick={()=>signOut()}>Logout</Button>
-         
+              <Button variant="outline" className=" cursor-pointer" onClick={()=>decode?.user ? handleLogout() : signOut()}>Logout</Button>
             :
             <Link href="/login">
               <Button variant="outline" className=" cursor-pointer"> Sign In</Button>
